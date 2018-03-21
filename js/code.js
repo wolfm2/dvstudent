@@ -1,3 +1,6 @@
 $(document).ready(function() {
-      alert("document ready occurred!");
+  for (var item in window) {
+    console.log(item);
+  }
+  $('#test').html(window['N00334855'].email);
 });
