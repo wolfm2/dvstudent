@@ -1,3 +1,17 @@
+/*
+Locates all student work objects in global namespace.
+Inits page.
+*/
+
+// set background
+function setBg () {
+  img = new Image();
+  img.src = "assets/background.jpg";
+  img.style.opacity = "0.3";
+  document.body.appendChild(img);
+}
+
+// main
 $(document).ready(function() {
   for (var item in window) {
     
@@ -6,5 +20,4 @@ $(document).ready(function() {
       $('#test').html(window[item].email);
     }
   }
-  
 });
