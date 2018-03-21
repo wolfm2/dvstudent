@@ -92,8 +92,7 @@ entryData = []; // sort it however
 // main
 $(document).ready(function() {
     // setBg();
-    $("head").append('<script type="text/javascript" src="' + "js/data.js" + '"></script>');  // block until loaded
-    
+    $.getScript("js/data.js", function(){
     for (var item in window) {
         // find entries in global namespace
         if (/^N([0-9]{8})$/.test(item)) {
@@ -103,5 +102,6 @@ $(document).ready(function() {
     }
 
     $("#people").load("assets/startbootstrap-3-col-portfolio-gh-pages/index-ppl.html", entriesLoaded);
+    });
 });
 
