@@ -3,9 +3,8 @@ $(document).ready(function() {
     
     if ( /^N([0-9]{8})$/.test(item) ) { // find entries
       console.log("Found: " + item);
+      $('#test').html(window[item].email);
     }
-    
-    $('#test').html(window[item].email);
   }
   
 });
