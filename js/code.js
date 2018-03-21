@@ -6,7 +6,7 @@ Inits page.
 // set background
 function setBg () {
   img = new Image();
-  img.src = "assets/background.jpg";
+  img.src = "assets/background.png";
   img.style.opacity = "0.3";
   document.body.appendChild(img);
 }
