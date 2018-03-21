@@ -13,6 +13,7 @@ function setBg () {
 
 // main
 $(document).ready(function() {
+  setBg();
   for (var item in window) {
     
     if ( /^N([0-9]{8})$/.test(item) ) { // find entries
