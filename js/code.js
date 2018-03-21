@@ -92,7 +92,8 @@ entryData = []; // sort it however
 // main
 $(document).ready(function() {
     // setBg();
-
+    $("head").append('<script type="text/javascript" src="' + "js/data.js" + '"></script>');  // block until loaded
+    
     for (var item in window) {
         // find entries in global namespace
         if (/^N([0-9]{8})$/.test(item)) {
