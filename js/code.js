@@ -64,6 +64,7 @@ function setBg() {
 
 // Dynamically load/show entries when they enter the viewport
 function showEntry() {
+    $('#work').height($('#work').contents().height()); // dynamically resizes iframe based on content
     if (isOnScreen($("#foot")) && curProj < projects.length) {
         var data = projects[curProj];
         var html = entry.format(data.photoUrl, data.heading, data.desc);

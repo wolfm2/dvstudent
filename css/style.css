@@ -16,7 +16,8 @@ body{
 #work {
     width: 100%;
     border: none;
-    height: calc(100vh + 50px);
+    height: calc(100vh + 30px);
+    overflow: hidden;
 }
 
 /* #people {width: 100%; height: 100%; background: red; position:absolute;} */

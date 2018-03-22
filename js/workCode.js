@@ -116,6 +116,7 @@ entry = `
       <!-- Portfolio Item Row -->
       <div class="row">
         <h3 class="my-4">{1}  </h3>
+        
         <div class="col-md-8">
           <img class="img-fluid" src="{0}" alt="">
         </div>
@@ -123,18 +124,23 @@ entry = `
           <h3 class="my-3">A Collaboration With</h3>
           <ul>
             <li>Michael Wolf</li>
-            <li>This would only</li>
-            <li>Appear if</li>
-            <li>we have </li>
-            <li>collaboration data</li>
+            <li>Vivian Westwood</li>
+            <li>Dolly Parton</li>
+            <li>Benford Hopscotch</li>
+            <li>Robot #5</li>
             <li>Each would be</li>
             <li>a link to that</li>
             <li>persons first project.</li>
           </ul>
-        </div>
-          <a href="{2}"> <img class="my-4" height="20" src="../../assets/link.svg" title="Link to Project"></a>
-          
-          
+        </div>  
+        
+        
+ 	<center class="col-md-12"><div class="col-md-8">
+          <img class="img-fluid" src="{0}" alt=""> </div>
+        </center>
+        
+        
+          &nbsp
           <p>{3}</p>
   
         <div class="col-md-8">
@@ -143,7 +149,8 @@ entry = `
         <div class="col-md-4">
           <h3 class="my-3">{5} 
             <a href="{7}"> <img height="20" src="../../assets/envelope.svg" title="Email"></a>
-            <a href="{8}"> <img height="20" src="../../assets/home.svg" title="Site"></a>
+            <a href="{8}"> <img height="20" src="../../assets/home.svg" title="Personal Site"></a>
+            <a href="{2}"> <img class="my-4" height="20" src="../../assets/link.svg" title="Link to Project"></a>
           </h3>
           <p>{6}</p>
           
@@ -151,7 +158,7 @@ entry = `
       <!-- /.row -->
 
       <!-- Related Projects Row -->
-      <h3 class="my-4">Related Projects</h3>
+      <h3 class="my-4">Related Projects (How are we doing this?)</h3>
 
       <div class="row">
 
