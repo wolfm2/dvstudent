@@ -39,10 +39,10 @@ if (!String.prototype.format) {
 entry = `
         <div class="col-lg-4 col-sm-6 portfolio-item">
           <div class="card h-100">
-            <a href="#"><img class="card-img-top" src={0} alt=""></a>
+            <a href="#work"><img class="card-img-top" src={0} alt=""></a>
             <div class="card-body">
               <h4 class="card-title">
-                <a href="#">{1}</a>
+                <a href="#work">{1}</a>
               </h4>
               <p class="card-text">{2}</p>
             </div>
@@ -52,49 +52,46 @@ entry = `
 
 foot = '<span id="foot" class="col-lg-4 col-sm-6 portfolio-item">.</span>';
 
-curEntry = 0; // current entry
+curProj = 0; // current entry
 
 // set background
 function setBg() {
-    img = new Image();
+    var img = new Image();
     img.src = "assets/background.png";
     img.style.opacity = "0.3";
     document.body.appendChild(img);
 }
 
+// Dynamically load/show entries when they enter the viewport
 function showEntry() {
-    while (isOnScreen($("#foot")) && curEntry < entryData.length) {
-        data = window[entryData[curEntry]];
-        html = entry.format(data.photo, data.name, data.bio);
-        $(html).appendTo(".row").show('fast');
-        $(".row > div").css("opacity", "1");
-        $("#foot").remove();
+    if (isOnScreen($("#foot")) && curProj < projects.length) {
+        var data = projects[curProj];
+        var html = entry.format(data.photoUrl, data.heading, data.desc);
+        $(html).appendTo(".row").show(100);
+        $(".row > div:last  a").click(function() { // set anchors in entry to load work
+            $("#work").attr("src", "assets/startbootstrap-portfolio-item-gh-pages/index.html?uid=" + data.uid + "&work="+ data.idx)    
+        });
+        
+        $("#foot").remove(); // move foot to bottom
         $(foot).appendTo(".row");
-        curEntry++;
-        // console.log(curEntry);
+        
+        $(".row > div").css("opacity", "1");
+        curProj++;
+        // console.log(curProj);
         // console.log(isOnScreen($("#foot")));
     }
 }
 
 function entriesLoaded() {
-    //$("BODY").click(function() {
-    //  addPerson();
-    //});
     $(foot).appendTo(".row")
-    //showEntry();
-    //$(document).scroll(function() {
-    //    showEntry();
-    //});
     setInterval(showEntry, 200);  // Strangely this is the ratified way to deal with async file loads. Seems wasteful.
 }
 
 entryData = []; // sort it however
+projects = [];
 
 // main
-//$(document).ready(function() {
-//$(window).bind("load", function() {
-window.onload = function() {
-    // setBg();
+$(document).ready(function() {
     //$.getScript("js/data.js", function(){
     for (var item in window) {
         // find entries in global namespace
@@ -103,8 +100,17 @@ window.onload = function() {
             entryData.push(item);
         }
     }
+    
+    // assemble list of projects
+    entryData.forEach(function(uid) {
+      window[uid].projects.forEach(function(proj, idx){
+        // console.log(proj.heading);
+        proj.uid = uid;  // add unique key
+        proj.idx = idx;
+        projects.push(proj);
+      });
+    });
 
     $("#people").load("assets/startbootstrap-3-col-portfolio-gh-pages/index-ppl.html", entriesLoaded);
-    //});
-};
+});
 
