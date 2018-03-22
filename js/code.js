@@ -81,17 +81,19 @@ function entriesLoaded() {
     //  addPerson();
     //});
     $(foot).appendTo(".row")
-    showEntry();
-    $(document).scroll(function() {
-        showEntry();
-    });
+    //showEntry();
+    //$(document).scroll(function() {
+    //    showEntry();
+    //});
+    setInterval(showEntry, 200);  // Strangely this is the ratified way to deal with async file loads. Seems wasteful.
 }
 
 entryData = []; // sort it however
 
 // main
 //$(document).ready(function() {
-$(window).bind("load", function() {
+//$(window).bind("load", function() {
+window.onload = function() {
     // setBg();
     //$.getScript("js/data.js", function(){
     for (var item in window) {
@@ -104,5 +106,5 @@ $(window).bind("load", function() {
 
     $("#people").load("assets/startbootstrap-3-col-portfolio-gh-pages/index-ppl.html", entriesLoaded);
     //});
-});
+};
 
