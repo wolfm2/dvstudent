@@ -90,9 +90,10 @@ function entriesLoaded() {
 entryData = []; // sort it however
 
 // main
-$(document).ready(function() {
+//$(document).ready(function() {
+$(window).bind("load", function() {
     // setBg();
-    $.getScript("js/data.js", function(){
+    //$.getScript("js/data.js", function(){
     for (var item in window) {
         // find entries in global namespace
         if (/^N([0-9]{8})$/.test(item)) {
@@ -102,6 +103,6 @@ $(document).ready(function() {
     }
 
     $("#people").load("assets/startbootstrap-3-col-portfolio-gh-pages/index-ppl.html", entriesLoaded);
-    });
+    //});
 });
 
