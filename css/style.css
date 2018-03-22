@@ -12,3 +12,11 @@
   /* width: 100%; */
   /* transform: translateY(150px); */
 }
+
+body{
+  /* background: red; */
+  
+  background: linear-gradient(#81989D,#FF787C);
+  -webkit-filter: -webkit-gradient(linear, right 10%, right bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
+
+}

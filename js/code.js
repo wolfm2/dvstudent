@@ -71,8 +71,8 @@ function showEntry() {
         $("#foot").remove();
         $(foot).appendTo(".row");
         curEntry++;
-        console.log(curEntry);
-        console.log(isOnScreen($("#foot")));
+        // console.log(curEntry);
+        // console.log(isOnScreen($("#foot")));
     }
 }
 
