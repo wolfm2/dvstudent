@@ -9,8 +9,11 @@
 }
 
 body{
-  background: linear-gradient(#81989D,#FF787C);
-  -webkit-filter: -webkit-gradient(linear, right 10%, right bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
+  /* background: linear-gradient(#81989D,#FF787C); */
+  /* background: linear-gradient(to bottom right, #AB987A, #FF533D); */
+  /* background: linear-gradient(to bottom right, #1BBBB2, #36B8E9); */
+  background: linear-gradient(170deg, #F5CE28, #F2EEE2, #F2EEE2);
+  -webkit-filter: -webkit-gradient(to bottom right, right 10%, right bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
 }
 
 #work {
