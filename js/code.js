@@ -88,11 +88,16 @@ function entriesLoaded() {
     setInterval(showEntry, 200);  // Strangely this is the ratified way to deal with async file loads. Seems wasteful.
 }
 
+function goTop() {
+  $(document).scrollTop(0);
+}
+
 entryData = []; // sort it however
 projects = [];
 
 // main
 $(document).ready(function() {
+
     //$.getScript("js/data.js", function(){
     for (var item in window) {
         // find entries in global namespace
@@ -101,7 +106,7 @@ $(document).ready(function() {
             entryData.push(item);
         }
     }
-    
+   
     // assemble list of projects
     entryData.forEach(function(uid) {
       window[uid].projects.forEach(function(proj, idx){
@@ -113,5 +118,7 @@ $(document).ready(function() {
     });
 
     $("#people").load("assets/startbootstrap-3-col-portfolio-gh-pages/index-ppl.html", entriesLoaded);
+ 
+    setTimeout(goTop, 1000);
 });
 
