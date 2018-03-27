@@ -4,12 +4,12 @@
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-3-col-portfolio/blob/master/LICENSE)
  */
 
-body {
+#group {
   /* padding-top: 54px; */ /* mw */
 }
 
 @media (min-width: 992px) {
-  body {
+  #group {
     /* padding-top: 56px; */ /* mw */
   }
 }
@@ -21,3 +21,4 @@ body {
 .pagination {
   margin-bottom: 30px;
 }
+

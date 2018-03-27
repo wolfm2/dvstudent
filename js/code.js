@@ -3,75 +3,34 @@ Locates all student work objects in global namespace.
 Inits page.
 */
 
-// test if in viewport
-function isOnScreen(element) {
-
-    var win = $(window);
-
-    var viewport = {
-        top: win.scrollTop(),
-        left: win.scrollLeft()
-    };
-    viewport.right = viewport.left + win.width();
-    viewport.bottom = viewport.top + win.height();
-
-    var bounds = element.offset();
-    bounds.right = bounds.left + element.outerWidth();
-    bounds.bottom = bounds.top + element.outerHeight();
-
-    return (!(viewport.right < bounds.left || viewport.left > bounds.right || viewport.bottom < bounds.top || viewport.top > bounds.bottom));
-}
-
-// a pythonesque format method
-if (!String.prototype.format) {
-    String.prototype.format = function() {
-        var args;
-        args = arguments;
-        if (args.length === 1 && args[0] !== null && typeof args[0] === 'object') {
-            args = args[0];
-        }
-        return this.replace(/{([^}]*)}/g, function(match, key) {
-            return (typeof args[key] !== "undefined" ? args[key] : match);
-        });
-    };
-}
-
-entry = `
-        <div class="col-lg-4 col-sm-6 portfolio-item">
-          <div class="card h-100">
-            <a href="#work"><img class="card-img-top" src={0} alt=""></a>
-            <div class="card-body">
-              <h4 class="card-title">
-                <a href="#work">{1}</a>
-              </h4>
-              <p class="card-text">{2}</p>
-            </div>
-          </div>
-        </div>
-`;
-
-foot = '<span id="foot" class="col-lg-4 col-sm-6 portfolio-item">.</span>';
-
 curProj = 0; // current entry
+lastClick = null;
 
-// set background
-function setBg() {
-    var img = new Image();
-    img.src = "assets/background.png";
-    img.style.opacity = "0.3";
-    document.body.appendChild(img);
+function loadIndiv() {
+    var uid = $(lastClick).attr("data-uid");
+    var idx = parseInt($(lastClick).attr("data-idx"));
+    $("#view").html(indiv);
+    var person = window[uid];
+    var proj = window[uid]["projects"][idx];
+    $("#entryContainer").append(iEntry.format(proj.photoUrl, proj.heading, proj.workUrl, proj.subHead, person.photo, 
+      person.name, person.bio, person.email, person.site));
+    // $("#work").attr("src", "assets/startbootstrap-portfolio-item-gh-pages/index.html?uid=" + data.uid + "&work="+ data.idx) 
 }
 
 // Dynamically load/show entries when they enter the viewport
 function showEntry() {
-    $('#work').height($('#work').contents().height()); // dynamically resizes iframe based on content
+    if (! $('#group').length ) // run load-on-sroll only when ID is present
+      return;
+    
     if (isOnScreen($("#foot")) && curProj < projects.length) {
         var data = projects[curProj];
-        var html = entry.format(data.photoUrl, data.heading, data.desc);
+        var html = gEntry.format(data.photoUrl, data.heading, data.desc, data.uid, data.idx);
         $(html).appendTo(".row").show(100);
-        $(".row > div:last  a").click(function() { // set anchors in entry to load work
-            $("#work").attr("src", "assets/startbootstrap-portfolio-item-gh-pages/index.html?uid=" + data.uid + "&work="+ data.idx)    
-        });
+        $(".row > div:last  a").click(function() {
+          lastClick = this;
+          loadIndiv();
+        }); // set anchors in entry to load work   
+        
         
         $("#foot").remove(); // move foot to bottom
         $(foot).appendTo(".row");
@@ -83,13 +42,24 @@ function showEntry() {
     }
 }
 
-function entriesLoaded() {
-    $(foot).appendTo(".row")
+function onScroll() {
     setInterval(showEntry, 200);  // Strangely this is the ratified way to deal with async file loads. Seems wasteful.
 }
 
-function goTop() {
-  $(document).scrollTop(0);
+// Changing in one div messes with the nav buttons.  Hardcode for each page.
+function onURLChange() {
+    //alert(window.location.href);
+    if (window.location.href.search("#") == -1) {
+      $("#view").html(group);
+      $(foot).appendTo(".row");
+      curProj = 0;
+    } else {
+      if (lastClick == null) {
+        window.location.href = "index.html";
+      } else {
+        loadIndiv();
+      }
+    }
 }
 
 entryData = []; // sort it however
@@ -98,7 +68,10 @@ projects = [];
 // main
 $(document).ready(function() {
 
-    //$.getScript("js/data.js", function(){
+    onURLChange();  // init div w first set of elements
+    // Ajax-ish HTML rewriting kills navigation buttons.  Hardcode for each element set manually.
+    $(window).on('popstate', onURLChange)
+    
     for (var item in window) {
         // find entries in global namespace
         if (/^N([0-9]{8})$/.test(item)) {
@@ -110,15 +83,23 @@ $(document).ready(function() {
     // assemble list of projects
     entryData.forEach(function(uid) {
       window[uid].projects.forEach(function(proj, idx){
-        // console.log(proj.heading);
         proj.uid = uid;  // add unique key
         proj.idx = idx;
         projects.push(proj);
       });
     });
-
-    $("#people").load("assets/startbootstrap-3-col-portfolio-gh-pages/index-ppl.html", entriesLoaded);
- 
-    setTimeout(goTop, 1000);
+    
+    onScroll() // on-scroll functionality  
+    
+    // $("#people").load("assets/startbootstrap-3-col-portfolio-gh-pages/index-ppl.html", entriesLoaded);
+    
+    /* 
+    url = window.location.href; 
+    if (url.endsWith("#work") && curProj == 0) // go back to top on reload
+      window.location.href = url.slice(0,-5);
+    $(this).scrollTo(0);
+    */
+    
+    //window.onhashchange = function() {alert("hi");}
 });
 
