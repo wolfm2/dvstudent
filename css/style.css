@@ -27,13 +27,13 @@ body{
 /* #work {width: 100%; height: 100%; background: blue; display: none; position:absolute;} */
 
 #fixedszP {
-  object-fit: fill;
-  width: 750px;
-  height: 500px;
+  oobject-fit: fill;
+  min-width: 100%;
+  /* height: 500px; */
 }
 
 #fixedszW {
   object-fit: fill;
   width: 750px;
-  height: 500px;
+  /* height: 500px; */
 }
